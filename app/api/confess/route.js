@@ -1,12 +1,16 @@
-import { Client } from 'pg';
+import { Pool } from 'pg';
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
 
 export async function POST(req) {
-  const { secret_text } = await req.json();
-  const client = new Client({ connectionString: process.env.DATABASE_URL });
-  await client.connect();
-  
-  await client.query('INSERT INTO confessions (secret_text) VALUES ($1)', [secret_text]);
-  await client.end();
-  
-  return new Response(JSON.stringify({ success: true }), { status: 200 });
+  try {
+    const { secret_text } = await req.json();
+    await pool.query('INSERT INTO confessions (secret_text) VALUES ($1)', [secret_text]);
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  }
 }
