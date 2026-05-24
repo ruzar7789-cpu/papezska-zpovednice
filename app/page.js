@@ -53,7 +53,7 @@ export default function Home() {
         {status === 'submitted' && (
           <div style={{ padding: '20px' }}>
             <h2 style={{ color: '#d4af37' }}>Téměř hotovo</h2>
-            <p>Vaše zpověď byla přijata. Pro dokončení obřadu prosím načtěte tento QR kód pro oběť 99 Kč:</p>
+            <p>Vaše zpověď byla přijata do digitálního archivu. Pro dokončení obřadu prosím načtěte tento kód pro oběť 99 Kč:</p>
             
             <div style={{ margin: '30px', display: 'flex', justifyContent: 'center' }}>
               <QRCode 
@@ -82,5 +82,4 @@ export default function Home() {
       </div>
     </main>
   );
-  }
-          
+          }
